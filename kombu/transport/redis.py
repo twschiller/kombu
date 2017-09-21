@@ -827,6 +827,10 @@ class Channel(virtual.Channel):
             'socket_keepalive': self.socket_keepalive,
             'socket_keepalive_options': self.socket_keepalive_options,
         }
+
+        if conninfo.ssl:
+            connparams['connection_class'] = redis.SSLConnection
+
         if redis.VERSION < (2, 10):
             for param in _r210_options:
                 val = connparams.pop(param, None)
